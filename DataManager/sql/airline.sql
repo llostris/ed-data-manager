@@ -11,7 +11,7 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('Air Contractors', 'Air Co
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air Europa', 'Air Europa');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air France', 'Air France');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air India', 'Air India');
-INSERT INTO "DataManager_country"(name, forms) VALUES('Air India Express', 'Air India Express, Air India');
+INSERT INTO "DataManager_country"(name, forms) VALUES('Air India Express', 'Air India Express,Air India');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air Memphis', 'Air Memphis');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air New Zealand', 'Air New Zealand');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Air One', 'Air One');
@@ -50,7 +50,7 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('China Eastern', 'China Ea
 INSERT INTO "DataManager_country"(name, forms) VALUES('China Southern', 'China Southern');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Condor', 'Condor');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Copa airlines', 'Copa airlines');
-INSERT INTO "DataManager_country"(name, forms) VALUES('Corendon', 'Corendon, Cordendon Airlines');
+INSERT INTO "DataManager_country"(name, forms) VALUES('Corendon', 'Corendon,Corendon Airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Czech airlines', 'Czech airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Delta', 'Delta');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Dragonair', 'Dragonair');
@@ -90,7 +90,7 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('KLM', 'KLM');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Korean Air', 'Korean Air');
 INSERT INTO "DataManager_country"(name, forms) VALUES('LAN airlines', 'LAN airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Lion airlines', 'Lion airlines');
-INSERT INTO "DataManager_country"(name, forms) VALUES('LOT', 'Polskie Linie Lotnicze LOT, LOT, PLL LOT');
+INSERT INTO "DataManager_country"(name, forms) VALUES('LOT', 'Polskie Linie Lotnicze LOT,LOT,PLL LOT');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Lufthansa', 'Lufthansa');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Malaysia airlines', 'Malaysia airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('MNG Airlines', 'MNG Airlines');
@@ -115,9 +115,9 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('Royal Jordanian', 'Royal 
 INSERT INTO "DataManager_country"(name, forms) VALUES('Ryanair', 'Ryanair');
 INSERT INTO "DataManager_country"(name, forms) VALUES('S7 airlines', 'S7 airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Saga Airlines', 'Saga Airlines');
-INSERT INTO "DataManager_country"(name, forms) VALUES('SAS', 'SAS, SAS Scandinavian Airlines');
+INSERT INTO "DataManager_country"(name, forms) VALUES('SAS', 'SAS,SAS Scandinavian Airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Saudia', 'Saudia');
-INSERT INTO "DataManager_country"(name, forms) VALUES('Scoot airlines', 'Scoot "DataManager_country", Scoot');
+INSERT INTO "DataManager_country"(name, forms) VALUES('Scoot airlines', 'Scoot airlines,Scoot');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Singapore airlines', 'Singapore airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Sky Airlines', 'Sky Airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Skylanes', 'Skylanes');
@@ -155,6 +155,6 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('Virgin Australia', 'Virgi
 INSERT INTO "DataManager_country"(name, forms) VALUES('Volaris', 'Volaris');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Vueling airlines', 'Vueling airlines');
 INSERT INTO "DataManager_country"(name, forms) VALUES('WestJet', 'WestJet');
-INSERT INTO "DataManager_country"(name, forms) VALUES('Wizzair', 'Wizzair, Wizz Air');
+INSERT INTO "DataManager_country"(name, forms) VALUES('Wizzair', 'Wizzair,Wizz Air');
 INSERT INTO "DataManager_country"(name, forms) VALUES('WizzAir Ukraina', 'WizzAir Ukraina');
 INSERT INTO "DataManager_country"(name, forms) VALUES('WOW air', 'WOW air');
