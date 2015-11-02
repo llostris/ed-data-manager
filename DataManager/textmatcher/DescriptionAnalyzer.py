@@ -25,13 +25,19 @@ class DescriptionAnalyzer:
     def analyze(self, description):
         forms = self.names_regex.findall(description)
         forms = map(lambda x: re.sub(self.ignored_characters, " ", x).strip(), forms)
-        forms = filter(lambda x: x.lower() not in self.stop_words, forms)
-        forms = filter(lambda x: x[0].isupper(), forms)
+        # forms = filter(lambda x: x.lower() not in self.stop_words, forms)
+        forms = [ ' '.join(filter(lambda x: x.lower() not in self.stop_words, form.split())) for form in forms ]
+        # forms = filter(lambda x: x[0].isupper(), forms)
 
         cities, countries, airlines = [], [], []
 
         for form in list(forms):
             found_match = False
+
+            if not found_match:
+                city = self.word_matcher.get_base_form(form, City.objects.all(), City.objects)
+                if city is not None:
+                    cities.append(AnalyzedCity(city.id, city.country.id, city.name, form).get_dict())
 
             if not found_match:
                 country = self.word_matcher.get_base_form(form, Country.objects.all(), Country.objects)
@@ -44,9 +50,5 @@ class DescriptionAnalyzer:
                 if airline is not None:
                     airlines.append(AnalyzedEntity(airline.id, airline.name, form).get_dict())
 
-            if not found_match:
-                city = self.word_matcher.get_base_form(form, City.objects.all(), City.objects)
-                if city is not None:
-                    cities.append(AnalyzedCity(city.id, city.country.id, city.name, form).get_dict())
 
         return cities, countries, airlines

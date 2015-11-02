@@ -164,7 +164,7 @@ INSERT INTO "DataManager_country"(name, forms) VALUES('Słowenia', 'Słowenia');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Somalia', 'Somalia');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Somaliland', 'Somaliland');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Sri Lanka', 'Sri Lanka');
-INSERT INTO "DataManager_country"(name, forms) VALUES('Stany Zjednoczone', 'Stany Zjednoczone,Ameryka,USA');
+INSERT INTO "DataManager_country"(name, forms) VALUES('Stany Zjednoczone', 'Stany Zjednoczone,Ameryka,Ameryki,USA');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Suazi', 'Suazi');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Sudan', 'Sudan');
 INSERT INTO "DataManager_country"(name, forms) VALUES('Sudan Południowy', 'Sudan Południowy');
