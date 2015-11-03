@@ -26,7 +26,7 @@ def add_cities(apps, schema_editor):
     Country = apps.get_model("DataManager", "Country")
     db_alias = schema_editor.connection.alias
 
-    airports = set(get_airports())
+    airports = get_airports()
 
     cities = []
     for airport in airports:

@@ -38,6 +38,7 @@ class DescriptionAnalyzer:
                 city = self.word_matcher.get_base_form(form, City.objects.all(), City.objects)
                 if city is not None:
                     cities.append(AnalyzedCity(city.id, city.country.id, city.name, form).get_dict())
+                    found_match = True
 
             if not found_match:
                 country = self.word_matcher.get_base_form(form, Country.objects.all(), Country.objects)
@@ -49,6 +50,7 @@ class DescriptionAnalyzer:
                 airline = self.word_matcher.get_base_form(form, Airline.objects.all(), Airline.objects)
                 if airline is not None:
                     airlines.append(AnalyzedEntity(airline.id, airline.name, form).get_dict())
+                    found_match = True
 
 
         return cities, countries, airlines
