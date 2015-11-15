@@ -16,18 +16,16 @@ Including another URLconf
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from DataManager import views
-from DataManager.views import AirlineDetail, AirlineList
-
-airline_urls = patterns('',
-    url(r'^(?P<id>[0-9]+)$', AirlineDetail.as_view(), name='airline-detail'),
-    url(r'^$', AirlineList.as_view(), name='airline-list')
-)
 
 urlpatterns = [
     # url( r'^api/', include( 'api.urls' ) ),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^country/$', views.countries),
     url(r'^country/(?P<pk>[0-9]+)$', views.country),
-    url(r'^analyze/.*$', views.analyze),
-    url(r'^airline/', include(airline_urls)),
+    url(r'^airline/$', views.airlines),
+    url(r'^airline/(?P<pk>[0-9]+)$', views.airline),
+    # url(r'^city/(?P<pk>[0-9]+)$', views.city),
+    # url(r'^city/.*$', views.cities),
+    url(r'^analyze/$', views.analyze),
+    # url(r'^airline/', include(airline_urls)),
 ]

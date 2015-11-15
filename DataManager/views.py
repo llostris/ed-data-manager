@@ -3,9 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.generics import ListCreateAPIView, RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
 from DataManager.dto import AnalyzeResult
-from DataManager.models import Airline, Country
+from DataManager.models import Airline, Country, City
 from DataManager.serializers import CountrySerializer, AirlineSerializer, AnalyzeRequestSerializer, \
-    AnalyzeResultSerializer
+    AnalyzeResultSerializer, CitySerializer
 from DataManager.textmatcher.DescriptionAnalyzer import DescriptionAnalyzer
 from DataManager.textmatcher.TextMatcher import TextMatcher
 
@@ -46,19 +46,40 @@ def country(request, pk):
 
 # Airlines
 
-class AirlineList(ListAPIView):
-    model = Airline
-    serializer_class = AirlineSerializer
-    # permission_classes = [
-    #     permissions.AllowAny
-    # ]
-
-    def get_queryset(self):
-        queryset = super(AirlineList, self).get_queryset()
-        return queryset.filter(author__username=self.kwargs.get('id'))
+@api_view(['GET'])
+def airlines(request, format=None):
+    if request.method == 'GET':
+        entities = Airline.objects.all()
+        serializer = AirlineSerializer(entities, many=True)
+        return Response(serializer.data)
 
 
-class AirlineDetail(RetrieveAPIView):
-    model = Airline
-    serializer_class = AirlineSerializer
-    lookup_field = 'id'
+@api_view(['GET'])
+def airline(request, pk):
+    try:
+        result = Airline.objects.get(pk=pk)
+    except Airline.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = AirlineSerializer(result)
+    return Response(serializer.data)
+
+# Cities
+
+@api_view(['GET'])
+def cities(request, format=None):
+    if request.method == 'GET':
+        entities = City.objects.all()
+        serializer = CitySerializer(entities, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def city(request, pk):
+    try:
+        result = City.objects.get(pk=pk)
+    except City.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = CitySerializer(result, context={'request': request})
+    return Response(serializer.data)

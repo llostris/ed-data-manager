@@ -10,6 +10,7 @@ __author__ = 'Magda'
 CITY_KEY = 'city'
 AIRLINE_KEY = 'airline'
 COUNTRY_KEY = 'country'
+NO_MATCH_KEY = 'none'
 
 
 class DescriptionAnalyzer:
@@ -21,6 +22,11 @@ class DescriptionAnalyzer:
         self.names_regex = re.compile(r"((?:\b[A-ZŁĄĘĆŚŃŻŹ][\w]+\b\s*){1,4})")
         self.stop_words = []
         self.word_matcher = TextMatcher()
+
+
+        self.cities = dict()
+        self.countries = dict()
+        self.airlines = dict()
 
         with open('data/stopwords.txt', encoding='utf-8') as f:
             lines = f.readlines()
@@ -43,6 +49,8 @@ class DescriptionAnalyzer:
         if airline is not None:
             return AIRLINE_KEY, airline
 
+        return None, None
+
     def get_existing_form_match(self, form):
         city = self.word_matcher.get_base_form_combined(form, City.objects.all(), City.objects)
         if city is not None:
@@ -55,6 +63,8 @@ class DescriptionAnalyzer:
         airline = self.word_matcher.get_base_form_combined(form, Airline.objects.all(), Airline.objects)
         if airline is not None:
             return AIRLINE_KEY, airline
+
+        return None, None
 
     def get_base_form(self, form):
         city = self.word_matcher.get_base_form_combined(form, City.objects.all(), City.objects)
@@ -69,46 +79,75 @@ class DescriptionAnalyzer:
         if airline is not None:
             return AIRLINE_KEY, airline
 
-    def create_result(self, form, entity_type, entity):
+        return None, None
+
+    def save_result(self, form, entity_type, entity):
         if entity_type == CITY_KEY:
-            return AnalyzedCity(entity.id, entity.country.id, entity.name, form).get_dict()
+            self.cities[entity.name] = AnalyzedCity(entity.id, entity.country.id, entity.name, form).get_dict()
         elif entity_type == COUNTRY_KEY:
-            return AnalyzedCountry(entity.id, entity.name, form).get_dict()
+            self.countries[entity.name] = AnalyzedCountry(entity.id, entity.name, form).get_dict()
         elif entity_type == AIRLINE_KEY:
-            return AnalyzedEntity(entity.id, entity.name, form).get_dict()
+            self.airlines[entity.name] = AnalyzedEntity(entity.id, entity.name, form).get_dict()
 
     def analyze(self, description):
         forms = self.names_regex.findall(description)
+        if 'easyJet' in description.split():
+            forms.append('easyJet')
         print(forms)
         forms = map(lambda x: re.sub(self.ignored_characters, " ", x).strip(), forms)
-        print(forms)
         forms = [ ' '.join(filter(lambda x: x.lower() not in self.stop_words, form.split())) for form in forms ]
         forms = filter(lambda x: len(x) > 0, forms)
         forms = set(forms)
         print(forms)
 
-        cities, countries, airlines = dict(), dict(), dict()
+        self.cities, self.countries, self.airlines = dict(), dict(), dict()
 
         for form in forms:
             found_match = False
 
+            # self.analyze_simple(form)
+
+            entity_key, entity = self.get_naive_match(form)
+            if entity_key is not None:
+                self.save_result(form, entity_key, entity)
+                found_match = True
+
             if not found_match:
-                city = self.word_matcher.get_base_form_combined(form, City.objects.all(), City.objects)
-                if city is not None:
-                    cities[city.name] = AnalyzedCity(city.id, city.country.id, city.name, form).get_dict()
+                entity_key, entity = self.get_existing_form_match(form)
+                if entity_key is not None:
+                    self.save_result(form, entity_key, entity)
                     found_match = True
 
             if not found_match:
-                country = self.word_matcher.get_base_form_combined(form, Country.objects.all(), Country.objects)
-                if country is not None:
-                    countries[country.name] = AnalyzedCountry(country.id, country.name, form).get_dict()
+                entity_key, entity = self.get_base_form(form)
+                if entity_key is not None:
+                    self.save_result(form, entity_key, entity)
                     found_match = True
 
-            if not found_match:
-                airline = self.word_matcher.get_base_form_combined(form, Airline.objects.all(), Airline.objects)
-                if airline is not None:
-                    airlines[airline.name] = AnalyzedEntity(airline.id, airline.name, form).get_dict()
-                    found_match = True
+        return self.cities.values(), self.countries.values(), self.airlines.values()
 
+    def analyze_simple(self, form):
+        """
+        First, naive version of analyze.
+        :param form:
+        :return:
+        """
+        found_match = False
 
-        return cities.values(), countries.values(), airlines.values()
+        if not found_match:
+            city = self.word_matcher.get_base_form_combined(form, City.objects.all(), City.objects)
+            if city is not None:
+                self.cities[city.name] = AnalyzedCity(city.id, city.country.id, city.name, form).get_dict()
+                found_match = True
+
+        if not found_match:
+            country = self.word_matcher.get_base_form_combined(form, Country.objects.all(), Country.objects)
+            if country is not None:
+                self.countries[country.name] = AnalyzedCountry(country.id, country.name, form).get_dict()
+                found_match = True
+
+        if not found_match:
+            airline = self.word_matcher.get_base_form_combined(form, Airline.objects.all(), Airline.objects)
+            if airline is not None:
+                self.airlines[airline.name] = AnalyzedEntity(airline.id, airline.name, form).get_dict()
+                found_match = True
