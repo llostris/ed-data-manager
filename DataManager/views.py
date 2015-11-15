@@ -44,20 +44,6 @@ def country(request, pk):
     serializer = CountrySerializer(result)
     return Response(serializer.data)
 
-
-@api_view(['GET'])
-def countrym(request):
-    params = request.query_params
-    original_form = params['form']  # TODO: read an array from request.data
-
-    countries = Country.objects.all()
-    base_form = word_matcher.get_base_form(original_form, countries)
-    data = { 'country' : base_form }
-
-    if base_form:
-        return Response(data=data, status=status.HTTP_200_OK)
-    return Response(status=status.HTTP_404_NOT_FOUND)
-
 # Airlines
 
 class AirlineList(ListAPIView):

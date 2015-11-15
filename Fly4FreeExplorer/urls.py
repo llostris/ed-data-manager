@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^country/$', views.countries),
     url(r'^country/(?P<pk>[0-9]+)$', views.country),
-    url(r'^countrym/.*$', views.countrym),
     url(r'^analyze/.*$', views.analyze),
     url(r'^airline/', include(airline_urls)),
 ]
