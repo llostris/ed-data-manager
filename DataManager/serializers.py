@@ -20,7 +20,8 @@ class AirlineSerializer(serializers.HyperlinkedModelSerializer):
 class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = City
-        fields = ('name', 'forms', 'country')
+        fields = ('name', 'forms')
+        country = serializers.HyperlinkedIdentityField(view_name = 'country')
 
 
 # --- NON-MODEL SERIALIZERS ---

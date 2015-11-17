@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^country/(?P<pk>[0-9]+)$', views.country),
     url(r'^airline/$', views.airlines),
     url(r'^airline/(?P<pk>[0-9]+)$', views.airline),
-    # url(r'^city/(?P<pk>[0-9]+)$', views.city),
-    # url(r'^city/.*$', views.cities),
+    url(r'^city/(?P<pk>[0-9]+)$', views.city),
+    url(r'^city/.*$', views.cities),
     url(r'^analyze/$', views.analyze),
     # url(r'^airline/', include(airline_urls)),
 ]
